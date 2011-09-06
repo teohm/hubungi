@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  provider: MyString
+  identifier: MyString
+  display_name: MyString
+  auth_type: MyString
+  auth_token1: MyString
+  auth_token2: MyString
+  profile: 
+
+two:
+  provider: MyString
+  identifier: MyString
+  display_name: MyString
+  auth_type: MyString
+  auth_token1: MyString
+  auth_token2: MyString
+  profile: 
