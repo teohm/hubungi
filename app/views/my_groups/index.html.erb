@@ -1,0 +1,37 @@
+<ul>
+<% @groups.each do |group| %>
+
+  <li>
+    <%= form_tag update_my_group_public_flag_path(group.id),
+                 :remote => true,
+                 :method => :post,
+                 :id => "group_#{group.id}",
+                 :style => (group.is_public? ? '' : 'text-decoration: line-through') do %>
+      <span><%= group.name %></span>
+      <%= check_box_tag :is_public, 1, group.is_public? %>
+    <% end %>
+  </li>
+
+<% end %>
+</ul>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input[type=checkbox]').change(function() {
+        var form = $(this).parent('form');
+        var checkbox = $(this);
+
+        form.submit();
+
+        form.bind('ajax:success', function (evt, xhr, status) {
+          if (checkbox.is(':checked')) {
+            form.css('text-decoration', 'none');
+          } else {
+            form.css('text-decoration', 'line-through');
+          }      
+        });
+
+
+
+    });
+  });
+</script>

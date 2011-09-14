@@ -1,0 +1,30 @@
+<h1><%= current_profile.name %></h1>
+
+<ul>
+<% @contacts.each do |contact| %>
+  <li>
+    <strong><%= contact.name %></strong>
+    <% if contact.phone %>
+    <p>
+      <%= contact.phone %>
+      <a href="tel:<%= contact.phone %>">Call</a>
+    </p>
+    <% end %>
+
+    <% if contact.address %>
+    <p>
+      <%= contact.address %>
+      <%= link_to 'Map', "http://maps.google.com/", {:q => contact.address} %>
+    </p>
+    <% end %>
+
+    <p>
+      <%= contact.tags %>
+    </p>
+  </li>
+<% end %>
+</ul>
+
+<pre>
+<%= @foo %>
+</pre>

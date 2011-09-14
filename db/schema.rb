@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110904075800) do
+ActiveRecord::Schema.define(:version => 20110913142925) do
 
   create_table "accounts", :force => true do |t|
     t.string   "provider"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(:version => 20110904075800) do
   end
 
   add_index "accounts", ["profile_id"], :name => "index_accounts_on_profile_id"
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "is_public",  :default => true
+  end
+
+  add_index "groups", ["account_id"], :name => "index_groups_on_account_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "email"

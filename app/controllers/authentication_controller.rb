@@ -28,8 +28,10 @@ class AuthenticationController < ApplicationController
         :email => email, :name => name)
 
     # add account if account not exists
-    profile.accounts.where(
-        :provider => 'google', :identifier => email).first || profile.accounts.create(
+    account = profile.accounts.where(
+        :provider => 'google', :identifier => email).first || profile.accounts.create
+
+    account.update_attributes(
         :provider => 'google',
         :identifier => email,
         :display_name => email,
@@ -41,10 +43,11 @@ class AuthenticationController < ApplicationController
     # sign in
     session[:current_profile_id] = profile.id
 
-    redirect_to root_path
+    redirect_to my_home_path(profile)
   end
 
   def fetch_user_name_and_email(access_token)
+    RestClient.log = 'stdout'
     json = RestClient.get(
         'https://www.google.com/m8/feeds/contacts/default/thin',
         :params => {
@@ -73,7 +76,8 @@ class AuthenticationController < ApplicationController
         :grant_type => 'authorization_code'
       }
     )
-    hash = JSON.parse(json)
+    p "--------------------"
+    p hash = JSON.parse(json)
     Hashie::Mash.new(hash)
   end
 

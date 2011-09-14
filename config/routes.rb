@@ -4,6 +4,10 @@ Hubungi::Application.routes.draw do
   match 'auth/callback' => 'authentication#callback', :as => :callback
   match 'auth/error' => 'authentication#auth_error', :as => :auth_error
 
+  match 'profiles/:id' => 'my_home#index', :as => :my_home
+  match 'groups' => 'my_groups#index', :as => :my_groups
+  match 'groups/:id/public' => 'my_groups#update_public_flag', :as => :update_my_group_public_flag
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation:
